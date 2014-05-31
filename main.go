@@ -11,11 +11,18 @@ import (
 	"github.com/winston-ci/winston/config"
 )
 
-func main() {
+func filename() string {
 	flag.Parse()
-	fileName := flag.Arg(0)
+	return flag.Arg(0)
+}
 
-	configFile, err := os.Open(fileName)
+func fatal(err error) {
+	println(err.Error())
+	os.Exit(1)
+}
+
+func loadConfig() config.Config {
+	configFile, err := os.Open(filename())
 	if err != nil {
 		fatal(err)
 	}
@@ -26,6 +33,12 @@ func main() {
 		fatal(err)
 	}
 	configFile.Close()
+
+	return conf
+}
+
+func main() {
+	conf := loadConfig()
 
 	graph := gographviz.NewEscape()
 	graph.SetName("winston")
@@ -61,10 +74,5 @@ func main() {
 		}
 	}
 
-	fmt.Printf("%s\n", graph)
-}
-
-func fatal(err error) {
-	println(err.Error())
-	os.Exit(1)
+	fmt.Printf("%s", graph)
 }
