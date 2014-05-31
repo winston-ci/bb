@@ -1,0 +1,18 @@
+{
+	"ImportPath": "github.com/winston-ci/bb",
+	"GoVersion": "go1.2.2",
+	"Deps": [
+		{
+			"ImportPath": "code.google.com/p/gographviz",
+			"Rev": "454bc64fdfa20468f637d99162e1edc60c1a6677"
+		},
+		{
+			"ImportPath": "github.com/fraenkel/candiedyaml",
+			"Rev": "84842532f8194fe186b48a009251dfaec9924ccd"
+		},
+		{
+			"ImportPath": "github.com/winston-ci/winston/config",
+			"Rev": "8a4c8cef57fb9230301ba627df1feff88b646dff"
+		}
+	]
+}
