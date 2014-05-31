@@ -1,0 +1,76 @@
+---
+resources:
+  - name: smith
+    type: git
+    source:
+      uri: https://github.com/winston-ci/smith.git
+      branch: master
+
+  - name: winston
+    type: git
+    source:
+      uri: https://github.com/winston-ci/winston.git
+      branch: master
+
+  - name: redgreen
+    type: git
+    source:
+      uri: https://github.com/winston-ci/redgreen.git
+      branch: master
+
+  - name: prole
+    type: git
+    source:
+      uri: https://github.com/winston-ci/prole.git
+      branch: master
+
+  - name: room101
+    type: git
+    source:
+      uri: https://github.com/winston-ci/room101.git
+      branch: master
+
+jobs:
+  - name: smith
+    build: smith/build.yml
+    inputs:
+      - resource: smith
+
+  - name: winston
+    build: winston/build.yml
+    inputs:
+      - resource: winston
+
+  - name: redgreen
+    build: redgreen/build.yml
+    inputs:
+      - resource: redgreen
+
+  - name: prole
+    build: prole/build.yml
+    inputs:
+      - resource: prole
+
+  - name: bump
+    build: room101/ci/bump.yml
+    inputs:
+      - resource: winston
+        passed: [winston]
+        latest_only: true
+      - resource: redgreen
+        passed: [redgreen]
+        latest_only: true
+      - resource: prole
+        passed: [prole]
+        latest_only: true
+    outputs:
+      - resource: room101
+        params:
+          remote: git@github.com:winston-ci/room101.git
+          branch: master
+
+  - name: deploy
+    build: room101/ci/deploy.yml
+    inputs:
+      - resource: room101
+        latest_only: true
