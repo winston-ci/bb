@@ -1,6 +1,6 @@
 # Big Brother
 
-*Winston Configuration Visualiser*
+*pipeline visualiser*
 
 ## Usage
 
