@@ -7,5 +7,4 @@ GODEP_GOPATH=$(godep path)
 GOPATH=$GODEP_GOPATH:$GOPATH
 PATH=$GODEP_GOPATH/bin:$PATH
 
-# Integration Tests
-ginkgo -r -failOnPending -race
+ginkgo -r -race
